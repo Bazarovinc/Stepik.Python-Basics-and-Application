@@ -22,21 +22,23 @@ for line in lines:
                 parents[l[0]].append(l[i])
             i += 1
 q = int(input())
-print(parents)
 check = read_n_lines(q)
+printed = []
 for line in check:
-    par, cl = line.split()
-    if par in parents[cl] or par == cl:
-        print("Yes")
+    if len(printed) == 0:
+        printed.append(line)
+    elif line in printed:
+        print(line)
     else:
-        while i < len(parents[cl]):
-            search = parents[cl][i]
-            if par in parents[search]:
-                print("Yes")
-                break
-            else:
+        i = 0
+        flag = 0
+        if len(parents[line]) != 0:
+            while i < len(parents[line]):
+                parent = parents[line][i]
+                if parent in printed:
+                    print(line)
+                    flag = 1
+                    break
                 i += 1
-        if i == len(parents[cl]):
-            print("No")
-
-
+        if flag == 0:
+            printed.append(line)
